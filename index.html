@@ -1,76 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <meta name=viewport content="width=device-width, initial-scale=1">
-  <!-- Normalize.css for better cross-browser consistency -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
-  <!-- Main CSS file -->
-  <link rel="stylesheet" href="css/styles.css" type="text/css">
+  <link rel="stylesheet" href="css/styles.css">
   <title>Restaurant Reviews</title>
 </head>
 
 <body>
-  <!-- Beginning header -->
   <header>
-    <!-- Beginning nav -->
-    <nav>
-      <h1><a href="/" tabindex="-1">Restaurant Reviews</a></h1>
+    <nav  tabindex="0">
+      <h1><a href="/">Restaurant Reviews</a></h1>
     </nav>
-    <!-- End nav -->
   </header>
-  <!-- End header -->
+  <main id="main-content">
+    <a class="skip-main" href="#filter-options" tabindex="1">Skip to main content</a>
 
-  <!-- Beginning main -->
-  <main id="maincontent">
-    <section id="map-container">
-      <div id="map"></div>
+    <section id="map-container" aria-hidden="true">
+      <div id="map" role="application" tabindex="-1"></div>
     </section>
     <section>
-      <div class="filter-options">
-        <h2>Filter Results</h2>
-        <select tabindex="1" id="neighborhoods-select" name="neighborhoods" aria-label="Select Neighborhood" onchange="updateRestaurants()">
-          <option value="all">All Neighborhoods</option>
-        </select>
-        <select tabindex="2" id="cuisines-select" name="cuisines" aria-label="Select Cusisine" onchange="updateRestaurants()">
-          <option value="all">All Cuisines</option>
-        </select>
+      <div class="filter-options" id="filter-options">
+        <div align="center">
+          <div class="select_label" aria-labelledby="neighborhoods-select" tabindex="2">Select neighborhood</div>
+          <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-label="select">
+            <option value="all">All Neighborhoods</option>
+          </select>
+        </div>
+        <div align="center">
+          <div class="select_label" aria-labelledby="cuisines-select" tabindex="3">Choose cuisine</div>
+          <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+            <option value="all">All Cuisines</option>
+          </select>
+        </div>
+
       </div>
-      <ul id="restaurants-list"></ul>
+        <ul tabindex="4" id="restaurants-list" role="listbox"></ul>
     </section>
   </main>
-  <!-- End main -->
 
-  <!-- Beginning scripts -->
-  <!-- Service Worker Registration -->
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('sw.js').then(function (registration) {
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }, function (err) {
-          console.log('ServiceWorker registration failed: ', err);
-        });
-      });
-    }
-  </script>
-  <!-- Database helpers -->
+if('serviceWorker' in navigator) {
+  navigator.serviceWorker
+           .register('sw.js')
+           .then(function() { console.log("Service Worker Registered"); });
+}
+</script>
+
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
-  <!-- Main javascript file -->
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
-
-
-  <!-- Google Maps -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACl3n5GBrA424aCDptLAmATcyHWnuZtLM&callback=initMap"></script>
-  <!-- End scripts -->
 
-  <!-- Beginning footer -->
-  <footer id="footer">
+      <footer id="footer">
     Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
-  <!-- End footer -->
 
 </body>
 
